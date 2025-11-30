@@ -7,6 +7,7 @@ import Coords = g.Coords;
 import Direction = g.Direction;
 import Disposition = g.Disposition;
 import Orientation = g.Orientation;
+import Quaternion = g.Quaternion;
 import Polar = g.Polar;
 import RangeExtent = g.RangeExtent;
 import Rotation = g.Rotation;
@@ -39,21 +40,27 @@ import Wedge = g.Wedge;
 
 // Geometry - Shapes - Meshes.
 import Mesh = g.Mesh;
+import Mesh_FaceBuilder = g.Mesh_FaceBuilder;
 
 // Geometry - Transforms.
 import Transform = g.Transform;
 import TransformBase = g.TransformBase;
 import Transform_Dynamic = g.Transform_Dynamic;
+import Transform_Interpolatable = g.Transform_Interpolatable;
 import Transform_Locate = g.Transform_Locate;
 import Transform_Multiple = g.Transform_Multiple;
 import Transform_None = g.Transform_None;
 import Transform_Orient = g.Transform_Orient;
+import Transform_OrientForCamera = g.Transform_OrientForCamera;
+import Transform_OrientRDF = g.Transform_OrientRDF;
 import Transform_Overwrite = g.Transform_Overwrite;
+import Transform_Perspective = g.Transform_Perspective;
 import Transform_Rotate2D = g.Transform_Rotate2D;
 import Transform_RotateLeft = g.Transform_RotateLeft;
 import Transform_RotateRight = g.Transform_RotateRight;
 import Transform_Scale = g.Transform_Scale;
 import Transform_Translate = g.Transform_Translate;
+import Transform_TranslateInvert = g.Transform_TranslateInvert;
 import Transformable = g.Transformable;
 import TransformableBase = g.TransformableBase;
 import Transforms = g.Transforms;
