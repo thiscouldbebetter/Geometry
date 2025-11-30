@@ -13,6 +13,11 @@ export class ShapeInverse extends ShapeBase
 		this.child = child;
 	}
 
+	static fromChild(child: Shape): ShapeInverse
+	{
+		return new ShapeInverse(child);
+	}
+
 	// Clonable.
 
 	clone(): ShapeInverse
@@ -49,7 +54,11 @@ export class ShapeInverse extends ShapeBase
 
 	// Transformable.
 
-	transform(transformToApply: TransformBase): ShapeInverse { throw new Error("Not implemented!");  }
+	transform(transformToApply: TransformBase): ShapeInverse
+	{
+		this.child.transform(transformToApply);
+		return this;
+	}
 
 }
 

@@ -26,7 +26,7 @@ export class Sphere extends ShapeBase
 
 	static default(): Sphere
 	{
-		return new Sphere(Coords.create(), Coords.fromXYZ(1, 0, 0) );
+		return Sphere.fromRadius(1);
 	}
 
 	static fromCenterAndPointOnSurface
@@ -160,6 +160,13 @@ export class Sphere extends ShapeBase
 		var diameter = this.radius() * 2;
 		boxOut.size.overwriteWithDimensions(diameter, diameter, diameter);
 		return boxOut;
+	}
+
+	// Strings.
+
+	toString(): string
+	{
+		return Sphere.name + " of radius " + this.radius + " at " + this.center.toString();
 	}
 
 	// Transformable.

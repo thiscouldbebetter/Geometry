@@ -203,6 +203,11 @@ export class Coords
 		return [ this.x, this.y, this.z ];
 	}
 
+	dimensionsXY(): number[]
+	{
+		return [ this.x, this.y ];
+	}
+
 	directions(): Coords
 	{
 		if (this.x < 0)
@@ -698,15 +703,34 @@ export class Coords
 
 	// string
 
-	toString()
+	static fromStringXxYxZ(coordsAsString: string): Coords
+	{
+		var xyz =
+			coordsAsString
+				.split("x")
+				.map(x => parseFloat(x) );
+
+		var returnValue =
+			Coords.fromXYZ(xyz[0], xyz[1], xyz[2]);
+
+		return returnValue;
+	}
+
+	toString(): string
+	{
+		return this.toStringXxYxZ();
+	}
+
+	toStringXxY(): string
+	{
+		return this.x + "x" + this.y;
+	}
+
+	toStringXxYxZ(): string
 	{
 		return this.x + "x" + this.y + "x" + this.z;
 	}
 
-	toStringXY()
-	{
-		return this.x + "x" + this.y;
-	}
 }
 
 class Coords_Instances

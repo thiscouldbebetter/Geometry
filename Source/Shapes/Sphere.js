@@ -13,7 +13,7 @@ var ThisCouldBeBetter;
                 this._pointRandom = Geometry.Coords.create();
             }
             static default() {
-                return new Sphere(Geometry.Coords.create(), Geometry.Coords.fromXYZ(1, 0, 0));
+                return Sphere.fromRadius(1);
             }
             static fromCenterAndPointOnSurface(center, pointOnSurface) {
                 return new Sphere(center, pointOnSurface);
@@ -95,6 +95,10 @@ var ThisCouldBeBetter;
                 var diameter = this.radius() * 2;
                 boxOut.size.overwriteWithDimensions(diameter, diameter, diameter);
                 return boxOut;
+            }
+            // Strings.
+            toString() {
+                return Sphere.name + " of radius " + this.radius + " at " + this.center.toString();
             }
             // Transformable.
             transform(transformToApply) {

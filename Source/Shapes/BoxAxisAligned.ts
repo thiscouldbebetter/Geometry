@@ -369,16 +369,16 @@ export class BoxAxisAligned extends ShapeBase
 		return returnValue;
 	}
 
-	// string
+	// Strings.
 
 	toString(): string
 	{
-		return this.min().toString() + ":" + this.max().toString();
+		return BoxAxisAligned.name + " of size " + this.size + " at " + this.center;
 	}
 
-	toStringXY(): string
+	toStringXxY(): string
 	{
-		return this.min().toStringXY() + ":" + this.max().toStringXY();
+		return this.min().toStringXxY() + ":" + this.max().toStringXxY();
 	}
 
 	// ShapeBase.

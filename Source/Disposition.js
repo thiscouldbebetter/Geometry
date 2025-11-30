@@ -14,7 +14,7 @@ var ThisCouldBeBetter;
                 this.vel = Geometry.Coords.create();
                 this.accel = Geometry.Coords.create();
                 this.force = Geometry.Coords.create();
-                this.spin = new Geometry.Rotation(this.orientation.down, new Geometry.Reference(0));
+                this.spin = Geometry.Rotation.fromAxisAndAngleInTurns(this.orientation.down, 0);
                 this.timeOffsetInTicks = 0;
                 this._accelDirection = Geometry.Coords.create();
                 this._velDirection = Geometry.Coords.create();
@@ -29,7 +29,7 @@ var ThisCouldBeBetter;
                 return new Disposition(pos, orientation, null);
             }
             static fromOrientation(orientation) {
-                return new Disposition(Geometry.Coords.create(), orientation, null);
+                return new Disposition(Geometry.Coords.zeroes(), orientation, null);
             }
             static fromPos(pos) {
                 return new Disposition(pos, Geometry.Orientation.default(), null);

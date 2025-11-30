@@ -8,6 +8,9 @@ var ThisCouldBeBetter;
                 super();
                 this.child = child;
             }
+            static fromChild(child) {
+                return new ShapeInverse(child);
+            }
             // Clonable.
             clone() {
                 return new ShapeInverse(this.child.clone());
@@ -29,7 +32,10 @@ var ThisCouldBeBetter;
                 return this.child.surfacePointNearPos(posToCheck, surfacePointOut);
             }
             // Transformable.
-            transform(transformToApply) { throw new Error("Not implemented!"); }
+            transform(transformToApply) {
+                this.child.transform(transformToApply);
+                return this;
+            }
         }
         Geometry.ShapeInverse = ShapeInverse;
     })(Geometry = ThisCouldBeBetter.Geometry || (ThisCouldBeBetter.Geometry = {}));

@@ -8,6 +8,9 @@ var ThisCouldBeBetter;
                 this.vertex = vertex;
                 this.direction = direction;
             }
+            static fromVertexAndDirection(vertex, direction) {
+                return new Ray(vertex, direction);
+            }
         }
         Geometry.Ray = Ray;
     })(Geometry = ThisCouldBeBetter.Geometry || (ThisCouldBeBetter.Geometry = {}));

@@ -125,6 +125,9 @@ var ThisCouldBeBetter;
             dimensions() {
                 return [this.x, this.y, this.z];
             }
+            dimensionsXY() {
+                return [this.x, this.y];
+            }
             directions() {
                 if (this.x < 0) {
                     this.x = -1;
@@ -452,11 +455,21 @@ var ThisCouldBeBetter;
                 return this;
             }
             // string
-            toString() {
-                return this.x + "x" + this.y + "x" + this.z;
+            static fromStringXxYxZ(coordsAsString) {
+                var xyz = coordsAsString
+                    .split("x")
+                    .map(x => parseFloat(x));
+                var returnValue = Coords.fromXYZ(xyz[0], xyz[1], xyz[2]);
+                return returnValue;
             }
-            toStringXY() {
+            toString() {
+                return this.toStringXxYxZ();
+            }
+            toStringXxY() {
                 return this.x + "x" + this.y;
+            }
+            toStringXxYxZ() {
+                return this.x + "x" + this.y + "x" + this.z;
             }
         }
         // constants

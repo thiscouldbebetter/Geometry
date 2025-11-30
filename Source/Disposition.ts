@@ -38,7 +38,7 @@ export class Disposition
 		this.accel = Coords.create();
 		this.force = Coords.create();
 
-		this.spin = new Rotation(this.orientation.down, new Reference(0));
+		this.spin = Rotation.fromAxisAndAngleInTurns(this.orientation.down, 0);
 
 		this.timeOffsetInTicks = 0;
 
@@ -66,7 +66,7 @@ export class Disposition
 
 	static fromOrientation(orientation: Orientation): Disposition
 	{
-		return new Disposition(Coords.create(), orientation, null);
+		return new Disposition(Coords.zeroes(), orientation, null);
 	}
 
 	static fromPos(pos: Coords): Disposition

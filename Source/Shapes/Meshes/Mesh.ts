@@ -97,7 +97,22 @@ export class Mesh extends ShapeBase
 		return new Mesh(center, vertexOffsets, faceBuilders);
 	}
 
-	static fromFace(center: Coords, faceToExtrude: Face, thickness: number): Mesh
+	static fromFace(face: Face): Mesh
+	{
+		return Mesh.fromCenterFaceToExtrudeAndThickness
+		(
+			Coords.create(),
+			face,
+			1
+		);
+	}
+
+	static fromCenterFaceToExtrudeAndThickness
+	(
+		center: Coords,
+		faceToExtrude: Face,
+		thickness: number
+	): Mesh
 	{
 		var faceVertices = faceToExtrude.vertices;
 		var numberOfFaceVertices = faceVertices.length;
@@ -272,6 +287,90 @@ export class Mesh extends ShapeBase
 		return this;
 	}
 
+	// Serialization.
+
+	static fromStringHumanReadable(meshAsString: string): Mesh
+	{
+		var newline = "\n";
+		var lines = meshAsString.split(newline);
+		var centerAsString = lines[1].split(": ")[1];
+		var center = Coords.fromStringXxYxZ(centerAsString);
+
+		lines = lines.slice(4);
+		var textFaces = "Faces:";
+		var lineIndexForTextFaces = lines.indexOf(textFaces);
+		var vertexOffsetsAsStrings = lines.slice(0, lineIndexForTextFaces);
+		var facesAsLines = lines.slice(lineIndexForTextFaces + 1);
+
+		var vertexOffsets =
+			vertexOffsetsAsStrings
+				.map(x => Coords.fromStringXxYxZ(x.split(": ")[1] ) );
+
+		var vertexIndicesForFaces =
+			facesAsLines.map
+			(
+				x => 
+					x
+						.split(": ")[1]
+						.split(", ")
+						.map(y => parseInt(y) )
+			);
+
+		var faceBuilders =
+			vertexIndicesForFaces
+				.map(x => Mesh_FaceBuilder.fromVertexIndices(x) );
+
+		var mesh = Mesh.fromCenterVertexOffsetsAndFaceBuilders
+		(
+			center, vertexOffsets, faceBuilders
+		);
+
+		return mesh;
+	}
+
+	toStringHumanReadable()
+	{
+		var verticesAsStrings =
+			this.vertexOffsets.map( (v, i) => i + ": " + v.toStringXxYxZ() )
+
+		var newline = "\n";
+
+		var verticesAsString = verticesAsStrings.join(newline);
+
+		var tab = "\t";
+		var tabTab = tab + tab;
+		var newlineTabTab = newline + tabTab;
+		verticesAsString =
+			tabTab
+			+ verticesAsString
+				.split(newline)
+				.join(newlineTabTab);
+
+		var facesAsVertexIndexStrings =
+			this.faceBuilders.map( (f, i) => i + ": " + f.toStringHumanReadable() );
+
+		var facesAsString = facesAsVertexIndexStrings.join(newline);
+
+		facesAsString =
+			tabTab
+			+ facesAsString
+				.split(newline)
+				.join(newlineTabTab);
+
+		var lines =
+		[
+			Mesh.name + ":",
+			tab + "Center: " + this.center.toStringXxYxZ(),
+			tab + "Vertices:",
+			verticesAsString,
+			tab + "Faces:",
+			facesAsString
+		];
+
+		var returnValue = lines.join(newline);
+		return returnValue;
+	}
+
 	// ShapeBase.
 
 	normalAtPos(posToCheck: Coords, normalOut: Coords): Coords
@@ -327,7 +426,7 @@ export class Mesh_FaceBuilder
 		}
 	}
 
-	// clonable
+	// Clonable.
 
 	clone(): Mesh_FaceBuilder
 	{
@@ -341,6 +440,13 @@ export class Mesh_FaceBuilder
 			this.vertexIndices, other.vertexIndices
 		);
 		return this;
+	}
+
+	// Serialization.
+
+	toStringHumanReadable(): string
+	{
+		return this.vertexIndices.join(", ");
 	}
 
 	// Transformable.

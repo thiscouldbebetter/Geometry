@@ -23,9 +23,19 @@ export class Orientation
 		this.axesRDF = [ this.right, this.down, this.forward ];
 	}
 
+	static create(): Orientation
+	{
+		return new Orientation(Coords.create(), Coords.create() );
+	}
+
 	static default(): Orientation
 	{
 		return new Orientation(new Coords(1, 0, 0), new Coords(0, 0, 1) );
+	}
+
+	static forwardZDownY(): Orientation
+	{
+		return new Orientation(Coords.fromXYZ(0, 0, 1), Coords.fromXYZ(0, 1, 0) );
 	}
 
 	static fromForward(forward: Coords): Orientation

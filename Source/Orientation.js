@@ -13,8 +13,14 @@ var ThisCouldBeBetter;
                 this.axes = [this.forward, this.right, this.down];
                 this.axesRDF = [this.right, this.down, this.forward];
             }
+            static create() {
+                return new Orientation(Geometry.Coords.create(), Geometry.Coords.create());
+            }
             static default() {
                 return new Orientation(new Geometry.Coords(1, 0, 0), new Geometry.Coords(0, 0, 1));
+            }
+            static forwardZDownY() {
+                return new Orientation(Geometry.Coords.fromXYZ(0, 0, 1), Geometry.Coords.fromXYZ(0, 1, 0));
             }
             static fromForward(forward) {
                 return new Orientation(forward, new Geometry.Coords(0, 0, 1));
